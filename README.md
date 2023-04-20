@@ -14,4 +14,4 @@ weil Null Promille erreicht sind.
 Eingabemöglichkeiten sind der Name des Getränks, 
 wodurch der Alkoholgehalt aus einer Map gesucht wird und die Menge in Milliliter.
 Oder Alkoholgehalt und Menge in Milliliter und der Name werden eingegeben, 
-wenn der Name m´nicht in der Map steht.
+wenn der Name nicht in der Map steht.

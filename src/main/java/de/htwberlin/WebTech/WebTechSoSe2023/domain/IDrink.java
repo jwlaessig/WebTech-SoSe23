@@ -16,6 +16,6 @@ public interface IDrink {
         BIER,
         SCHNAPS,
         LIKOER,
-        UNIQUE
+        ELSE
     }
 }

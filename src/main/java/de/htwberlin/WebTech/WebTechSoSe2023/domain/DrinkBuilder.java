@@ -26,12 +26,12 @@ public class DrinkBuilder {
         return this;
     }
 
-
     public Drink build(Drink.Category cat) {
         return switch (cat) {
             case BIER -> new Bier(name, alc, ml);
             case SCHNAPS -> new Schnaps(name, alc, ml);
             case LIKOER -> new Likoer(name, alc, ml);
+            case ELSE-> new Else(name, alc, ml);
         };
     }
 }

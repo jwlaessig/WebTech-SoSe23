@@ -15,6 +15,7 @@ public interface IDrink {
     enum Category{
         BIER,
         SCHNAPS,
-        LIKOER
+        LIKOER,
+        UNIQUE
     }
 }

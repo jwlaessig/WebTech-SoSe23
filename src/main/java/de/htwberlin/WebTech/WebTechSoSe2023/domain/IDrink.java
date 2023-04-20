@@ -8,6 +8,8 @@ public interface IDrink {
 
     BigDecimal getAlc();
 
+    Integer getMl();
+
     Category getCategory();
 
     enum Category{

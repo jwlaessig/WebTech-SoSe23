@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Likoer extends Drink{
     public Likoer(String name, BigDecimal alc, Integer ml) {
-        super(name, alc);
+        super(name, alc, ml);
     }
 
     @Override

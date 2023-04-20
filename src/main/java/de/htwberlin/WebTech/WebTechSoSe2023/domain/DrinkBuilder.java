@@ -9,6 +9,7 @@ public class DrinkBuilder {
 
     private String name;
     private BigDecimal alc;
+    private Integer ml;
 
     public DrinkBuilder setName(String name) {
         this.name = name;
@@ -20,11 +21,17 @@ public class DrinkBuilder {
         return this;
     }
 
+    public DrinkBuilder setMl(String ml) {
+        this.ml = new Integer(ml);
+        return this;
+    }
+
+
     public Drink build(Drink.Category cat) {
         return switch (cat) {
-            case BIER -> new Bier(name, alc);
-            case SCHNAPS -> new Schnaps(name, alc);
-            case LIKOER -> new Likoer(name, alc);
+            case BIER -> new Bier(name, alc, ml);
+            case SCHNAPS -> new Schnaps(name, alc, ml);
+            case LIKOER -> new Likoer(name, alc, ml);
         };
     }
 }

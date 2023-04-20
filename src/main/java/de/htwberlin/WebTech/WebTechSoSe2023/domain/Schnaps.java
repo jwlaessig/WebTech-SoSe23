@@ -3,7 +3,7 @@ package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 import java.math.BigDecimal;
 
 public class Schnaps extends Drink{
-    public Schnaps(String name, BigDecimal alc) {
+    public Schnaps(String name, BigDecimal alc, Integer ml) {
         super(name, alc);
     }
 

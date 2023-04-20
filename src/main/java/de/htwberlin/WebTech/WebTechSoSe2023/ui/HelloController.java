@@ -1,4 +1,4 @@
-package de.htwberlin.WebTech.WebTechSoSe2023;
+package de.htwberlin.WebTech.WebTechSoSe2023.ui;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

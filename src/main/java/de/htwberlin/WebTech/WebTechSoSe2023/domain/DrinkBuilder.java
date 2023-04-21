@@ -17,7 +17,8 @@ public class DrinkBuilder {
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
 
-    private BigDecimal alcAbbauRate = BigDecimal.valueOf(10);
+    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(10);
+    private BigDecimal alcAbbauRateProMinute = BigDecimal.valueOf(10/60);
 
     public DrinkBuilder setName(String name) {
         this.name = name;
@@ -44,8 +45,26 @@ public class DrinkBuilder {
         return this;
     }
 
+    // hier muss noch eingebaut werden, dass der wert von nuechtern der
+    // vorherigen trinkeinlage eingearbeitet werden muss.
+    // dazu ist aber die Datenbank nötig.
     public DrinkBuilder setNuechtern() {
-        this.nuechtern = LocalDateTime.now().plusHours(1);
+        int hours = 0;
+        int minutes = 0;
+
+        BigDecimal ausnuechtern = alc;
+
+        do {
+            ausnuechtern = ausnuechtern.subtract(alcAbbauRateProStunde);
+            hours = hours + 1;
+        } while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0);
+
+        do {
+            ausnuechtern = ausnuechtern.subtract(alcAbbauRateProMinute);
+            minutes = minutes + 1;
+        } while (ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0);
+
+        this.nuechtern = alcWirkt.plusHours(hours).plusMinutes(minutes);
         return this;
     }
 

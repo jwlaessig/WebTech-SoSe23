@@ -1,6 +1,7 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public interface IDrink {
 
@@ -9,6 +10,12 @@ public interface IDrink {
     BigDecimal getAlc();
 
     Integer getMl();
+
+    LocalDateTime getGetrunken();
+
+    LocalDateTime getAlcWirkt();
+
+    LocalDateTime getNuechtern();
 
     Category getCategory();
 

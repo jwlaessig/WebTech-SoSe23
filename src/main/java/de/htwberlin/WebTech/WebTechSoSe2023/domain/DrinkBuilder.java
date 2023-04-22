@@ -54,15 +54,15 @@ public class DrinkBuilder {
 
         BigDecimal ausnuechtern = alc;
 
-        do {
+        while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0) {
             ausnuechtern = ausnuechtern.subtract(alcAbbauRateProStunde);
             hours = hours + 1;
-        } while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0);
+        }
 
-        do {
+        while (ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
             ausnuechtern = ausnuechtern.subtract(alcAbbauRateProMinute);
             minutes = minutes + 1;
-        } while (ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0);
+        }
 
         this.nuechtern = alcWirkt.plusHours(hours).plusMinutes(minutes);
         return this;

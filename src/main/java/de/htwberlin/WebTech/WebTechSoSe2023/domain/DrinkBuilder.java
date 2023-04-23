@@ -17,8 +17,8 @@ public class DrinkBuilder {
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
 
-    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(25);
-    private BigDecimal alcAbbauRateProMinute = BigDecimal.valueOf(25/60);
+    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15);
+    private BigDecimal alcAbbauRateProMinute = BigDecimal.valueOf(15/60);
 
     public DrinkBuilder setName(String name) {
         this.name = name;

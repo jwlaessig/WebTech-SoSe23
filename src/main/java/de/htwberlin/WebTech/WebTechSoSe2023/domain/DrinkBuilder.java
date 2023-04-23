@@ -9,16 +9,16 @@ import java.time.LocalDateTime;
 public class DrinkBuilder {
 
     private String name;
-    private BigDecimal alc; // in Gramm
-    // 10g entsprechen 0.5l Bier mit 5% Alkohol
-    // das ist auch die durchschnittliche Alkoholabbaurate des Körpers pro Stunde
+    private BigDecimal alc; // in ml
+    // die durchschnittliche Alkoholabbaurate des Körpers pro Stunde
+    // beträgt 0,5l Bier innerhalb einer Stunde - Quelle chatGPT
     private Integer ml;
     private LocalDateTime getrunken;
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
 
-    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(10);
-    private BigDecimal alcAbbauRateProMinute = BigDecimal.valueOf(10/60);
+    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(25);
+    private BigDecimal alcAbbauRateProMinute = BigDecimal.valueOf(25/60);
 
     public DrinkBuilder setName(String name) {
         this.name = name;

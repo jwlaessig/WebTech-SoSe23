@@ -28,3 +28,18 @@ Drinks ist der Konstruktor der Oberklasse der Getränke.
 
 ---------------------------------------------------------------------
 
+für Berkem:
+
+Du kannst die zweite Abgabe programmieren. Und zwar möchte ich erstmal das speichern und laden
+in der Datenbank H2 implementiert haben, das ist auch Thema der 2ten Abgabe.
+Dazu zwei Listen erstellen des Datentyp IDrink (Interface), damit alle Getränke gespeichert werden
+können unabhängig von dem Konstruktor. Diese kannst du gespeichert und geladen nennen.
+Dann die build Methode in der Klasse DrinkBuilder anpassen, dass das erstellte Objekt in der 
+Liste gespeichert geaddet wird.
+Drittens; das neue Objekt der Liste gespeichert in die Datenbank einfügen.
+Viertens; das letzte Objekt aus der Datenbank laden (SQL sortiert nach LocalDateTime nuechtern DESC)
+und in die Liste geladen hinzufügen. Dazu solltest du wieder die build Methode der Klasse
+DrinkBuilder nutzen.
+Das war es. Wenn du neue Methoden hinzufügst, dann gucke bitte, ob es sinnvoll ist eine neue Klasse
+dafür zu erstellen. Vielleicht ist auch eine neue Klasse für die beiden neuen Listen sinnvoll. 
+Überleg es dir. Danke im Voraus.

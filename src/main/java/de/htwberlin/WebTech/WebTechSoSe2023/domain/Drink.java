@@ -9,16 +9,16 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-//@Entity
+@Entity
 public class Drink implements IDrink{
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final String name;
-    private final BigDecimal alc;
-    private final Integer ml;
-    private final LocalDateTime getrunken;
-    private final LocalDateTime alcWirkt;
-    private final LocalDateTime nuechtern;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String name;
+    private BigDecimal alc;
+    private Integer ml;
+    private LocalDateTime getrunken;
+    private LocalDateTime alcWirkt;
+    private LocalDateTime nuechtern;
 
     public Drink(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern) {
         this.name = name;
@@ -27,6 +27,10 @@ public class Drink implements IDrink{
         this.getrunken = getrunken;
         this.alcWirkt = alcWirkt;
         this.nuechtern = nuechtern;
+    }
+
+    public Drink() {
+
     }
 
     @Override

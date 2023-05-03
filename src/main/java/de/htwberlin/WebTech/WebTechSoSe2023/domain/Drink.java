@@ -1,10 +1,18 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+//@Entity
 public class Drink implements IDrink{
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private final String name;
     private final BigDecimal alc;
     private final Integer ml;

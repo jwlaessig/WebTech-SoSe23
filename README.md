@@ -43,3 +43,19 @@ DrinkBuilder nutzen.
 Das war es. Wenn du neue Methoden hinzufügst, dann gucke bitte, ob es sinnvoll ist eine neue Klasse
 dafür zu erstellen. Vielleicht ist auch eine neue Klasse für die beiden neuen Listen sinnvoll. 
 Überleg es dir. Danke im Voraus.
+
+----------------------------------------------------------------
+
+H2 config für windows:
+Systemumgebungsvariablen - Umgebungsvariablen - neu erstellen für
+DATASOURCE_URL      - BSP: jdbc:h2:file:/webtech_db/db
+DATASOURCE_USERNAME
+DATASOURCE_PASSWORD
+
+oder in intellij
+WebtechSoSe2023Application - Edit Configuration - Modify Option - Environment Variables - edit Environment Variables (add)
+DATASOURCE_URL      - BSP: jdbc:h2:file:/webtech_db/db
+DATASOURCE_USERNAME
+DATASOURCE_PASSWORD
+
+----------------------------------------------------------------

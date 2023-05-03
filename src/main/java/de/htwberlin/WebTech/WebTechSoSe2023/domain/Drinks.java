@@ -1,8 +1,5 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
-import de.htwberlin.WebTech.WebTechSoSe2023.domain.Drink;
-import de.htwberlin.WebTech.WebTechSoSe2023.domain.IDrink;
-
 import java.math.BigDecimal;
 import java.util.Map;
 

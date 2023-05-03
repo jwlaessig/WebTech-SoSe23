@@ -1,13 +1,9 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 public class Drink implements IDrink{
@@ -16,6 +12,8 @@ public class Drink implements IDrink{
     private String name;
     private BigDecimal alc;
     private Integer ml;
+    @Id
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime getrunken;
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
@@ -38,7 +36,7 @@ public class Drink implements IDrink{
         return new Drink(name, alc, ml, getrunken, alcWirkt, nuechtern);
     }
 
-    //build für die Getränke die getrunken wurden; Attribute werden durch die set Mehtoden gesetzt
+    //build für die Getränke die getrunken wurden; Attribute werden durch die set Methoden gesetzt
     @Override
     public Drink build(){
         return new Drink(name, alc, ml, getrunken, alcWirkt, nuechtern);

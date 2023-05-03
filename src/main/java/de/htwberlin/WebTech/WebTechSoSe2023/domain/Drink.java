@@ -20,6 +20,9 @@ public class Drink implements IDrink{
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
 
+    public Drink() {
+    }
+
     public Drink(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern) {
         this.name = name;
         this.alc = alc;
@@ -29,7 +32,16 @@ public class Drink implements IDrink{
         this.nuechtern = nuechtern;
     }
 
-    public Drink() {
+    //build für die Getränke die geladen wurden
+    @Override
+    public Drink build(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern){
+        return new Drink(name, alc, ml, getrunken, alcWirkt, nuechtern);
+    }
+
+    //build für die Getränke die getrunken wurden; Attribute werden durch die set Mehtoden gesetzt
+    @Override
+    public Drink build(){
+        return new Drink(name, alc, ml, getrunken, alcWirkt, nuechtern);
     }
 
     public Drink(String name, BigDecimal alc){
@@ -41,12 +53,6 @@ public class Drink implements IDrink{
     @Override
     public Drink build(String name, BigDecimal alc){
         return new Drink(name, alc);
-    }
-
-    //build für die Getränke die getrunken wurden oder geladen wurden
-    @Override
-    public Drink build(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern){
-        return new Drink(name, alc, ml, getrunken, alcWirkt, nuechtern);
     }
 
     @Override

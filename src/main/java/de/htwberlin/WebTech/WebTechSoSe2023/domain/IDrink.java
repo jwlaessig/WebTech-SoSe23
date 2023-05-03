@@ -20,4 +20,7 @@ public interface IDrink {
     Drink build(String name, BigDecimal alc);
 
     Drink build(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern);
+
+    Drink build();
+
 }

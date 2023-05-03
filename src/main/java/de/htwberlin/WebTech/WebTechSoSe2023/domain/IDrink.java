@@ -18,4 +18,6 @@ public interface IDrink {
     LocalDateTime getNuechtern();
 
     Drink build(String name, BigDecimal alc);
+
+    Drink build(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern);
 }

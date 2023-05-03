@@ -37,8 +37,16 @@ public class Drink implements IDrink{
         this.alc = alc;
     }
 
+    //build für die Map von gespeicherten Getränken (Drinks)
+    @Override
     public Drink build(String name, BigDecimal alc){
         return new Drink(name, alc);
+    }
+
+    //build für die Getränke die getrunken wurden oder geladen wurden
+    @Override
+    public Drink build(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern){
+        return new Drink(name, alc, ml, getrunken, alcWirkt, nuechtern);
     }
 
     @Override

@@ -30,7 +30,15 @@ public class Drink implements IDrink{
     }
 
     public Drink() {
+    }
 
+    public Drink(String name, BigDecimal alc){
+        this.name = name;
+        this.alc = alc;
+    }
+
+    public Drink build(String name, BigDecimal alc){
+        return new Drink(name, alc);
     }
 
     @Override
@@ -55,16 +63,52 @@ public class Drink implements IDrink{
     @Override
     public LocalDateTime getNuechtern() { return nuechtern; }
 
-    @Override
-    public Category getCategory() {
-        return null;
-    }
-
-    @Override
     public String toString() { return this.getName(); }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName().trim(), alc.doubleValue());
+    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15);
+    private BigDecimal alcAbbauRateProMinute = BigDecimal.valueOf(15/60);
+
+    public void setName(String name) {
+        this.name = name;
     }
+    public void setAlc(String alc) {
+        this.alc = new BigDecimal(alc);
+    }
+
+    public void setMl(String ml) {
+        this.ml = new Integer(ml);
+    }
+
+    public void setGetrunken() {
+        this.getrunken = LocalDateTime.now();
+    }
+
+    public void setAlcWirkt() {
+        this.alcWirkt = LocalDateTime.now().plusHours(1);
+    }
+
+    // hier muss noch eingebaut werden, dass der wert von nuechtern der
+    // vorherigen trinkeinlage eingearbeitet werden muss.
+    // dazu ist aber die Datenbank nötig.
+    public void setNuechtern() {
+        int hours = 0;
+        int minutes = 0;
+
+        BigDecimal ausnuechtern = alc;
+
+        while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0) {
+            ausnuechtern = ausnuechtern.subtract(alcAbbauRateProStunde);
+            hours = hours + 1;
+        }
+
+        while (ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
+            ausnuechtern = ausnuechtern.subtract(alcAbbauRateProMinute);
+            minutes = minutes + 1;
+        }
+
+        this.nuechtern = alcWirkt.plusHours(hours).plusMinutes(minutes);
+    }
+
+
+
 }

@@ -1,11 +1,10 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.data;
 
-import de.htwberlin.WebTech.WebTechSoSe2023.domain.DrinkBuilder;
+import de.htwberlin.WebTech.WebTechSoSe2023.domain.Drink;
 import de.htwberlin.WebTech.WebTechSoSe2023.domain.IDrink;
 
+import java.math.BigDecimal;
 import java.util.Map;
-
-import static de.htwberlin.WebTech.WebTechSoSe2023.domain.IDrink.Category.*;
 
 public class Drinks {
     private Drinks() {}
@@ -15,14 +14,14 @@ public class Drinks {
         if(theInstance == null) theInstance = new Drinks();
         return theInstance;
     }
-    private DrinkBuilder builder = new DrinkBuilder();
+    private IDrink builder = new Drink();
 
     private Map<Long, IDrink> articles = Map.of(
-            1L, builder.setName("Kindl").setAlc("5.1").build(BIER),
-            2L, builder.setName("Wahrsteiner").setAlc("4.8").build(BIER),
-            3L, builder.setName("Vodka").setAlc("40.0").build(SCHNAPS),
-            4L, builder.setName("Whiskey").setAlc("40.0").build(SCHNAPS),
-            5L, builder.setName("Feigling").setAlc("20.0").build(LIKOER));
+            1L, builder.build("Kindl", BigDecimal.valueOf(4.9)),
+            2L, builder.build("Wahrsteiner", BigDecimal.valueOf(4.8)),
+            3L, builder.build("Vodka", BigDecimal.valueOf(40.0)),
+            4L, builder.build("Whiskey", BigDecimal.valueOf(40.0)),
+            5L, builder.build("Feigling", BigDecimal.valueOf(20.0)));
 
     public Map<Long, IDrink> getAllArticles() { return articles; }
 }

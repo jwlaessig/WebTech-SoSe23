@@ -17,12 +17,5 @@ public interface IDrink {
 
     LocalDateTime getNuechtern();
 
-    Category getCategory();
-
-    enum Category{
-        BIER,
-        SCHNAPS,
-        LIKOER,
-        ELSE
-    }
+    Drink build(String name, BigDecimal alc);
 }

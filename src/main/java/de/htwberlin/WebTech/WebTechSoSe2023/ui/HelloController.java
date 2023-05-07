@@ -44,7 +44,7 @@ public class HelloController {
         return String.format("ID: %s, nüchtern: %s", id, drink.getNuechtern());
     }
 
-    //für den browser zum abfragen: http://localhost:8080/drinks/1001
+    //für den browser zum abfragen: http://localhost:8080/drinks/1
     @GetMapping(path="/drinks/{id}")
     public String loadDrink(@PathVariable("id") Long id){
         Drink drink = drinkService.get(id);

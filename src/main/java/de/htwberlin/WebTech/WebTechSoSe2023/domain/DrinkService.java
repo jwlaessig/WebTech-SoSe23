@@ -11,7 +11,16 @@ public class DrinkService {
     private IDrinkRepo repo;
 
     public Drink save(Drink zuSpeichern){
-        return repo.save(zuSpeichern);
+        Drink drink = new Drink();
+        drink.setName(zuSpeichern.getName());
+        drink.setAlcGehalt(zuSpeichern.getAlcGehalt());
+        drink.setMl(zuSpeichern.getMl());
+        drink.setAlc(drink.getAlcGehalt(), drink.getMl());
+        drink.setGetrunken();
+        drink.setAlcWirkt(drink.getGetrunken());
+        drink.setNuechtern(drink.getAlcWirkt());
+        drink.build();
+        return repo.save(drink);
     }
 
     public Drink get(Long id){

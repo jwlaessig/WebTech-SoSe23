@@ -48,6 +48,7 @@ public class HelloController {
       }
 
 
+      //benötigt die Werte Name, alcGehalt und ml für den (@RequestBody Drink request)
        @PostMapping(path = "/drinks")
         public ResponseEntity<Void> saveDrink(@RequestBody Drink request) throws URISyntaxException {
             var drink = drinkService.save(request);

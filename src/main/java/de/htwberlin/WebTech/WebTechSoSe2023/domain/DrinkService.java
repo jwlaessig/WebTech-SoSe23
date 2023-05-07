@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class DrinkService {
 
     @Autowired
-    @Qualifier("IDrinkRepo")
     private IDrinkRepo repo;
 
     public Drink save(Drink zuSpeichern){

@@ -2,20 +2,31 @@ package de.htwberlin.WebTech.WebTechSoSe2023;
 
 import de.htwberlin.WebTech.WebTechSoSe2023.domain.Drink;
 import de.htwberlin.WebTech.WebTechSoSe2023.domain.DrinkService;
-import de.htwberlin.WebTech.WebTechSoSe2023.domain.IDrink;
+import de.htwberlin.WebTech.WebTechSoSe2023.domain.IDrinkRepo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class WebTechSoSe2023ApplicationTests {
 
+	@Autowired
+	private DrinkService drinkService;
+
+	@MockBean
+	private IDrinkRepo drinkRepo;
+
 	@Test
-	@DisplayName("db-Test sollte ein IDrink Objekt speichern und laden")
+	@DisplayName("db-Test sollte ein Drink Objekt speichern und laden")
 	void dbTest() {
 		Drink zuSpeichern = new Drink();
 		zuSpeichern.setName("Wahrsteiner");
@@ -28,9 +39,12 @@ class WebTechSoSe2023ApplicationTests {
 
 		Long id = zuSpeichern.getId();
 
-		DrinkService ds = new DrinkService();
-		ds.save(zuSpeichern);
-		Drink geladen = ds.get(id);
+		// chatGPT hat die folgenden zwei Zeilen vorgeschlagen, um die Datenbank zu simulieren (Mocking)
+		when(drinkRepo.findById(id)).thenReturn(Optional.of(zuSpeichern));
+		when(drinkRepo.save(zuSpeichern)).thenReturn(zuSpeichern);
+
+		drinkService.save(zuSpeichern);
+		Drink geladen = drinkService.get(id);
 
 		assertEquals(zuSpeichern.getNuechtern(), geladen.getNuechtern());
 	}

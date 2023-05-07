@@ -3,6 +3,7 @@ package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,6 +13,7 @@ public class Drink implements IDrink{
     private Long id;
     private String name;
     private BigDecimal alc;
+    private BigDecimal alcGehalt;
     private BigDecimal ml;
     private LocalDateTime getrunken;
     private LocalDateTime alcWirkt;
@@ -67,6 +69,9 @@ public class Drink implements IDrink{
     }
 
     @Override
+    public BigDecimal getAlcGehalt() { return alcGehalt; }
+
+    @Override
     public BigDecimal getMl() {return ml;}
 
     @Override
@@ -81,8 +86,8 @@ public class Drink implements IDrink{
     @Override
     public String toString() { return this.getName(); }
 
-    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15.0);
-    private BigDecimal alcAbbauRateProMinute = alcAbbauRateProStunde.divide(BigDecimal.valueOf(60.0));
+    private final BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15.0);
+    private final BigDecimal alcAbbauRateProMinute = alcAbbauRateProStunde.divide(BigDecimal.valueOf(60.0));
 
     @Override
     public void setId(Long id) { this.id = id; }
@@ -93,9 +98,10 @@ public class Drink implements IDrink{
     }
 
     @Override
-    public void setAlc(BigDecimal alc) {
-        this.alc = alc;
-    }
+    public void setAlc(BigDecimal alcGehalt, BigDecimal ml) { this.alc = ml.divide(BigDecimal.valueOf(100)).multiply(alcGehalt); }
+
+    @Override
+    public void setAlcGehalt(BigDecimal aG) { this.alcGehalt = aG; }
 
     @Override
     public void setMl(BigDecimal ml) { this.ml = ml; }

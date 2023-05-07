@@ -16,6 +16,8 @@ public interface IDrink {
 
     BigDecimal getMl();
 
+    BigDecimal getAlcGehalt();
+
     LocalDateTime getGetrunken();
 
     LocalDateTime getAlcWirkt();
@@ -26,9 +28,11 @@ public interface IDrink {
 
     void setName(String name);
 
-    void setAlc(BigDecimal alc);
+    void setAlc(BigDecimal alc, BigDecimal ml);
 
     void setMl(BigDecimal ml);
+
+    void setAlcGehalt(BigDecimal aG);
 
     void setGetrunken();
 

@@ -30,8 +30,9 @@ class WebTechSoSe2023ApplicationTests {
 	void dbTest() {
 		Drink zuSpeichern = new Drink();
 		zuSpeichern.setName("Wahrsteiner");
-		zuSpeichern.setAlc(BigDecimal.valueOf(25.0));
 		zuSpeichern.setMl(BigDecimal.valueOf(500.0));
+		zuSpeichern.setAlcGehalt(BigDecimal.valueOf(4.8));
+		zuSpeichern.setAlc(zuSpeichern.getAlcGehalt(), zuSpeichern.getMl());
 		zuSpeichern.setGetrunken();
 		zuSpeichern.setAlcWirkt(zuSpeichern.getGetrunken());
 		zuSpeichern.setNuechtern(zuSpeichern.getAlcWirkt());

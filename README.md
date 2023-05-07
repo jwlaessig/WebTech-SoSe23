@@ -31,3 +31,25 @@ DATASOURCE_USERNAME
 DATASOURCE_PASSWORD
 
 ----------------------------------------------------------------
+
+Ich weiß nicht, wie weit der HelloController richtig ist.
+Also wir müssen noch eine Rest Schnittstelle mit PostMapping zum speichern 
+eines Objektes anlegenn und eine GetMapping zum laden für Meilenstein 2.
+Das gehört ja zum HelloController, weil wir Daten über den LocalPort:8080 
+eingeben müssen und diese in der Datenbank speichern.
+
+Für die build() Methode um ein normales Objekt zu speichern
+braucht man: name, alc, ml, getrunken, alcWirkt, nuechtern.
+LocalDateTime getrunken wird erzeugt mit der setGetrunken Methode.
+Um alc zu berechnen braucht man die Mehthode setAlc(BigDecimal ml, BigDecimal alcGehalt).
+Alc ist der Alkohol, der Abgebaut wird, alcGehalt sind die Prozente des Alkohol.
+die LocalDateTime alcWirkt und LocalDateTime nuechtern werden wieder mit den set Mehtoden erzeugt.
+
+Um ein Objekt über build() anzulegen braucht man also setName, setMl, set alcGehalt, setGetrunken 
+und mit deren Hilfe werden setAlc, setAlcWirkt und setNuechtern berechnet.
+In dem ApplicationTest kannst du dir angucken, wie die Methoden aufgerufen werden müssen, damit
+alles funktioniert.
+
+Also nun die html Oberfläche für die Eingabe der drei Werte name, alkGehalt und ml
+diese für einem build() fertig machen mit den anderen Methoden und speichern (mit .save(Objekt)).
+Dann eine weitere html Oberfläche um ein Objekt aus der Datenbank zu laden.

@@ -22,12 +22,12 @@ public class HelloController {
     @Autowired
     private DrinkService drinkService;
 
-    /**
+    //für den browser zum abfragen: http://localhost:8080/drinks?id=1001&name=Wahrsteiner&alsGehalt=4.8&ml=500
     @PostMapping("/drinks")
-    public ResponseEntity<Drink> saveDrink(@RequestParam("id") Long id,
-                                           @RequestParam("name") String name,
-                                           @RequestParam("alcGehalt") BigDecimal alcGehalt,
-                                           @RequestParam("ml") BigDecimal ml) {
+    public String saveDrink(@RequestParam("id") Long id,
+                            @RequestParam("name") String name,
+                            @RequestParam("alcGehalt") BigDecimal alcGehalt,
+                            @RequestParam("ml") BigDecimal ml) {
         Drink drink = new Drink();
         drink.setId(id);
         drink.setName(name);
@@ -39,8 +39,8 @@ public class HelloController {
         drink.setNuechtern(drink.getAlcWirkt());
         drink.build();
         Drink saved = drinkService.save(drink);
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+        return String.format("ID: %s, nüchtern: %s", id, drink.getNuechtern());
     }
-*/
+
 
 }

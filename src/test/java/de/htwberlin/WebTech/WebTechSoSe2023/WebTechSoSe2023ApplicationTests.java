@@ -30,7 +30,7 @@ class WebTechSoSe2023ApplicationTests {
 
 		DrinkService ds = new DrinkService();
 		ds.save(zuSpeichern);
-		IDrink geladen = ds.get(id);
+		Drink geladen = ds.get(id);
 
 		assertEquals(zuSpeichern.getNuechtern(), geladen.getNuechtern());
 	}

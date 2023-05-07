@@ -10,13 +10,13 @@ public class DrinkService {
 
     @Autowired
     @Qualifier("IDrinkRepo")
-    IDrinkRepo repo;
+    private IDrinkRepo repo;
 
     public Drink save(Drink zuSpeichern){
         return repo.save(zuSpeichern);
     }
 
-    public IDrink get(Long id){
+    public Drink get(Long id){
         return repo.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 

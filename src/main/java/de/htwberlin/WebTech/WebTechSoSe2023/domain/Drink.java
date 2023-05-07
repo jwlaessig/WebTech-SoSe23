@@ -81,8 +81,8 @@ public class Drink implements IDrink{
     @Override
     public String toString() { return this.getName(); }
 
-    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15);
-    private BigDecimal alcAbbauRateProMinute = BigDecimal.valueOf(15/60);
+    private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15.0);
+    private BigDecimal alcAbbauRateProMinute = alcAbbauRateProStunde.divide(BigDecimal.valueOf(60.0));
 
     @Override
     public void setId(Long id) { this.id = id; }

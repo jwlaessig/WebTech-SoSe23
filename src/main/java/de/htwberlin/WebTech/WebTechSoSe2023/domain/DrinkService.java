@@ -1,5 +1,6 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class DrinkService {
     }
 
     public IDrink get(Long id){
-        return repo.findById(id).orElseThrow(() -> new RuntimeException());
+        return repo.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 
 }

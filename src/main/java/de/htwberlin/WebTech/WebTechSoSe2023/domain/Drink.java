@@ -93,12 +93,12 @@ public class Drink implements IDrink{
     }
 
     @Override
-    public void setAlc(String alc) {
-        this.alc = new BigDecimal(alc);
+    public void setAlc(BigDecimal alc) {
+        this.alc = alc;
     }
 
     @Override
-    public void setMl(String ml) { this.ml = new BigDecimal(ml); }
+    public void setMl(BigDecimal ml) { this.ml = ml; }
 
     @Override
     public void setGetrunken() {
@@ -106,31 +106,34 @@ public class Drink implements IDrink{
     }
 
     @Override
-    public void setAlcWirkt() {
-        this.alcWirkt = LocalDateTime.now().plusHours(1);
+    public void setAlcWirkt(LocalDateTime sAW) {
+        this.alcWirkt = sAW.plusHours(1);
     }
 
     // hier muss noch eingebaut werden, dass der wert von nuechtern der
     // vorherigen trinkeinlage eingearbeitet werden muss.
     // dazu ist aber die Datenbank nötig.
     @Override
-    public void setNuechtern() {
+    public void setNuechtern(LocalDateTime sN) {
         int hours = 0;
         int minutes = 0;
 
         BigDecimal ausnuechtern = alc;
 
-        while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0) {
-            ausnuechtern = ausnuechtern.subtract(alcAbbauRateProStunde);
-            hours = hours + 1;
+        while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0 || ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
+            if (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0) {
+                ausnuechtern = ausnuechtern.subtract(alcAbbauRateProStunde);
+                hours = hours + 1;
+            } else {
+                ausnuechtern = ausnuechtern.subtract(alcAbbauRateProMinute);
+                minutes = minutes + 1;
+            }
+            if (ausnuechtern.compareTo(BigDecimal.ZERO) < 0) {
+                break;
+            }
         }
 
-        while (ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
-            ausnuechtern = ausnuechtern.subtract(alcAbbauRateProMinute);
-            minutes = minutes + 1;
-        }
-
-        this.nuechtern = alcWirkt.plusHours(hours).plusMinutes(minutes);
+        this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
     }
 
 

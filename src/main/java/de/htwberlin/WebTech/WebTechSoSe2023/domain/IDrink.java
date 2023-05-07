@@ -25,15 +25,15 @@ public interface IDrink {
 
     void setName(String name);
 
-    void setAlc(String alc);
+    void setAlc(BigDecimal alc);
 
-    void setMl(String ml);
+    void setMl(BigDecimal ml);
 
     void setGetrunken();
 
-    void setAlcWirkt();
+    void setAlcWirkt(LocalDateTime sAW);
 
-    void setNuechtern();
+    void setNuechtern(LocalDateTime sN);
 
 
     Drink build(String name, BigDecimal alc);

@@ -9,19 +9,19 @@ import java.time.LocalDateTime;
 public class Drink implements IDrink{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private BigDecimal alc;
-    private Integer ml;
-    @Id
-    @Temporal(TemporalType.TIMESTAMP)
+    private BigDecimal ml;
     private LocalDateTime getrunken;
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
 
+
     public Drink() {
     }
 
-    public Drink(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern) {
+    public Drink(String name, BigDecimal alc, BigDecimal ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern) {
         this.name = name;
         this.alc = alc;
         this.ml = ml;
@@ -32,7 +32,7 @@ public class Drink implements IDrink{
 
     //build für die Getränke die geladen wurden
     @Override
-    public Drink build(String name, BigDecimal alc, Integer ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern){
+    public Drink build(String name, BigDecimal alc, BigDecimal ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern){
         return new Drink(name, alc, ml, getrunken, alcWirkt, nuechtern);
     }
 
@@ -54,6 +54,9 @@ public class Drink implements IDrink{
     }
 
     @Override
+    public Long getId() { return id; }
+
+    @Override
     public String getName() {
         return name;
     }
@@ -64,7 +67,7 @@ public class Drink implements IDrink{
     }
 
     @Override
-    public Integer getMl() {return ml;}
+    public BigDecimal getMl() {return ml;}
 
     @Override
     public LocalDateTime getGetrunken() { return getrunken; }
@@ -75,26 +78,34 @@ public class Drink implements IDrink{
     @Override
     public LocalDateTime getNuechtern() { return nuechtern; }
 
+    @Override
     public String toString() { return this.getName(); }
 
     private BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15);
     private BigDecimal alcAbbauRateProMinute = BigDecimal.valueOf(15/60);
 
+    @Override
+    public void setId(Long id) { this.id = id; }
+
+    @Override
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
     public void setAlc(String alc) {
         this.alc = new BigDecimal(alc);
     }
 
-    public void setMl(String ml) {
-        this.ml = new Integer(ml);
-    }
+    @Override
+    public void setMl(String ml) { this.ml = new BigDecimal(ml); }
 
+    @Override
     public void setGetrunken() {
         this.getrunken = LocalDateTime.now();
     }
 
+    @Override
     public void setAlcWirkt() {
         this.alcWirkt = LocalDateTime.now().plusHours(1);
     }
@@ -102,6 +113,7 @@ public class Drink implements IDrink{
     // hier muss noch eingebaut werden, dass der wert von nuechtern der
     // vorherigen trinkeinlage eingearbeitet werden muss.
     // dazu ist aber die Datenbank nötig.
+    @Override
     public void setNuechtern() {
         int hours = 0;
         int minutes = 0;

@@ -22,8 +22,10 @@ public class HelloController {
     @Autowired
     private DrinkService drinkService;
 
-    //für den browser zum abfragen: http://localhost:8080/drinks?id=1001&name=Wahrsteiner&alsGehalt=4.8&ml=500
-    @PostMapping("/drinks")
+    //für den browser zum abfragen: http://localhost:8080/drinks?id=1001&name=Wahrsteiner&alcGehalt=4.8&ml=500.0
+    //eventuell muss die tabelle drink in der datenbank erst gelöscht werden, weil sie mit anderen attributen
+    //erstellt wurde, als jetzt eingetragen werden. SQL: drop table drink
+    @GetMapping(path="/drinks")
     public String saveDrink(@RequestParam("id") Long id,
                             @RequestParam("name") String name,
                             @RequestParam("alcGehalt") BigDecimal alcGehalt,
@@ -38,7 +40,7 @@ public class HelloController {
         drink.setAlcWirkt(drink.getGetrunken());
         drink.setNuechtern(drink.getAlcWirkt());
         drink.build();
-        Drink saved = drinkService.save(drink);
+        drinkService.save(drink);
         return String.format("ID: %s, nüchtern: %s", id, drink.getNuechtern());
     }
 

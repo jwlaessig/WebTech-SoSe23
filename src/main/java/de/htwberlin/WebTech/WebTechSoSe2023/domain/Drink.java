@@ -49,6 +49,16 @@ public class Drink implements IDrink{
         this.alc = alc;
     }
 
+    public Drink(String name, BigDecimal alc, BigDecimal ml) {
+        this.name = name;
+        this.alc = alc;
+        this.ml = ml;
+    }
+
+    public Drink build(String name, BigDecimal alc, BigDecimal ml){
+        return new Drink(name, alc, ml);
+    }
+
     //build für die Map von gespeicherten Getränken (Drinks)
     @Override
     public Drink build(String name, BigDecimal alc){

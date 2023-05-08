@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,11 +31,7 @@ class WebTechSoSe2023ApplicationTests {
 		zuSpeichern.setName("Wahrsteiner");
 		zuSpeichern.setMl(BigDecimal.valueOf(500.0));
 		zuSpeichern.setAlcGehalt(BigDecimal.valueOf(4.8));
-		zuSpeichern.setAlc(zuSpeichern.getAlcGehalt(), zuSpeichern.getMl());
-		zuSpeichern.setGetrunken();
-		zuSpeichern.setAlcWirkt(zuSpeichern.getGetrunken());
-		zuSpeichern.setNuechtern(zuSpeichern.getAlcWirkt());
-		zuSpeichern.build();
+		zuSpeichern.build(zuSpeichern.getName(), zuSpeichern.getAlc(), zuSpeichern.getMl());
 
 		Long id = zuSpeichern.getId();
 

@@ -4,6 +4,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DrinkService {
 
@@ -24,8 +26,10 @@ public class DrinkService {
     }
 
     public Drink get(Long id){
-        return repo.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        return repo.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-
+    public List<Drink> getAll() {
+        return repo.findAll();
+    }
 }

@@ -29,38 +29,33 @@ public class HelloController {
       //eventuell muss die tabelle drink in der datenbank erst gelöscht werden, weil sie mit anderen attributen
       //erstellt wurde, als jetzt eingetragen werden. SQL: drop table drink
      //        --- nur testweise ---
-      @GetMapping(path="/drinks/save") public String saveDrink(@RequestParam("id") Long id,
-      @RequestParam("name") String name,
-      @RequestParam("alcGehalt") BigDecimal alcGehalt,
-      @RequestParam("ml") BigDecimal ml) {
+      @GetMapping(path="/drinks/save")
+      public String saveDrink(@RequestParam("name") String name,
+                              @RequestParam("alcGehalt") BigDecimal alcGehalt,
+                              @RequestParam("ml") BigDecimal ml) {
           Drink drink = new Drink();
-          drink.setId(id);
           drink.setName(name);
           drink.setAlcGehalt(alcGehalt);
           drink.setMl(ml);
-          drink.setAlc(drink.getAlcGehalt(), drink.getMl());
-          drink.setGetrunken();
-          drink.setAlcWirkt(drink.getGetrunken());
-          drink.setNuechtern(drink.getAlcWirkt());
-          drink.build();
-          drinkService.save(drink);
-          return String.format("ID: %s, nüchtern: %s", id, drink.getNuechtern());
+          drink.build(drink.getName(), drink.getAlc(), drink.getMl());
+          Drink gespeichert = drinkService.save(drink);
+          return String.format("ID: %s, nüchtern: %s", gespeichert.getId(), drink.getNuechtern());
       }
 
-
       //benötigt die Werte Name, alcGehalt und ml für den (@RequestBody Drink request)
+      //der Konstruktor kann mit der Methode build(name, alc, ml) aufgerufen werden.
        @PostMapping(path = "/drinks")
         public ResponseEntity<Void> saveDrink(@RequestBody Drink request) throws URISyntaxException {
             var drink = drinkService.save(request);
-            URI uri = new URI((String) "/drinks" + drink.getId());
+            URI uri = new URI( "/drinks" + drink.getId());
             return ResponseEntity.created(uri).build();
         }
 
 
      //für den browser zum abfragen: http://localhost:8080/drinks/1
      @GetMapping(path="/drinks/{id}") public String loadDrink(@PathVariable("id") Long id){
-     Drink drink = drinkService.get(id);
-     return String.format("ID: %s, Name: %s, nüchtern: %s", id, drink.getName(), drink.getNuechtern());
+     Drink geladen = drinkService.get(id);
+     return String.format("ID: %s, Name: %s, nüchtern: %s", id, geladen.getName(), geladen.getNuechtern());
      }
 
 }

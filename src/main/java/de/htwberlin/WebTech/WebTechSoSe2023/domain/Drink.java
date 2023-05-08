@@ -3,7 +3,6 @@ package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Entity
@@ -49,21 +48,24 @@ public class Drink implements IDrink{
         this.alc = alc;
     }
 
-    public Drink(String name, BigDecimal alc, BigDecimal ml) {
-        this.name = name;
-        this.alc = alc;
-        this.ml = ml;
-    }
-
-    public Drink build(String name, BigDecimal alc, BigDecimal ml){
-        return new Drink(name, alc, ml);
-    }
-
     //build für die Map von gespeicherten Getränken (Drinks)
     @Override
     public Drink build(String name, BigDecimal alc){
         return new Drink(name, alc);
     }
+
+    //Konstruktor für das Einlesen der Daten für die PostMapping Methode saveDrink
+    public Drink(String name, BigDecimal alcGehalt, BigDecimal ml) {
+        this.name = name;
+        this.alcGehalt = alcGehalt;
+        this.ml = ml;
+    }
+
+    //build zum Testen
+    public Drink build(String name, BigDecimal alcGehalt, BigDecimal ml){
+        return new Drink(name, alcGehalt, ml);
+    }
+
 
     @Override
     public Long getId() { return id; }

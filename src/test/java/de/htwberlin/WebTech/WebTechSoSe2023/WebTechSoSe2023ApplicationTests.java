@@ -31,7 +31,7 @@ class WebTechSoSe2023ApplicationTests {
 		zuSpeichern.setName("Wahrsteiner");
 		zuSpeichern.setMl(BigDecimal.valueOf(500.0));
 		zuSpeichern.setAlcGehalt(BigDecimal.valueOf(4.8));
-		zuSpeichern.build(zuSpeichern.getName(), zuSpeichern.getAlc(), zuSpeichern.getMl());
+		zuSpeichern.build(zuSpeichern.getName(), zuSpeichern.getAlcGehalt(), zuSpeichern.getMl());
 
 		Long id = zuSpeichern.getId();
 

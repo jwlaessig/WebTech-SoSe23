@@ -2,11 +2,12 @@ package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Component
 public class DrinkService {
 
     @Autowired

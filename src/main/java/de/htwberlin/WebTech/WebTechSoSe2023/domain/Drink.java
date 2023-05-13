@@ -1,10 +1,12 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +23,6 @@ public class Drink implements IDrink{
     private LocalDateTime getrunken;
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
-
 
     public Drink() {
     }
@@ -151,8 +152,9 @@ public class Drink implements IDrink{
 
         DrinkService drinkService = new DrinkService();
         List<Drink> datenbank = drinkService.getAll();
-        Optional<Drink> lastEntry = datenbank.stream().max(Comparator.comparingLong(Drink::getId));
-        LocalDateTime zeit = lastEntry.get().getNuechtern();
+        Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
+        Drink newestDrink = Collections.max(datenbank, drinkComparator);
+        LocalDateTime zeit = newestDrink.getNuechtern();
         BigDecimal ausnuechtern = alc;
 
             while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0 || ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
@@ -171,7 +173,7 @@ public class Drink implements IDrink{
             this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
         }
             else{
-                Duration duration=Duration.between(aktuell.getGetrunken(),lastEntry.get().getNuechtern());
+                Duration duration=Duration.between(aktuell.getGetrunken(), zeit);
                 this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
             }
 

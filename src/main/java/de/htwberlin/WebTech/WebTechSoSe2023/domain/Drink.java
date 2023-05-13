@@ -170,7 +170,7 @@ public class Drink implements IDrink{
                 }
             }
         //    if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
-        //    this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
+            this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
         //}
         //    else{
         //        Duration duration=Duration.between(aktuell.getGetrunken(), zeit);

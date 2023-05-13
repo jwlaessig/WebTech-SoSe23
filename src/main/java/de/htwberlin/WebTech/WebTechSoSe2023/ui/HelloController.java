@@ -24,13 +24,13 @@ public class HelloController {
     @Autowired
     private DrinkService drinkService;
 
-      //benötigt die Werte Name, alcGehalt und ml für den (@RequestBody Drink request)
-       @PostMapping(path = "/drinks")
-        public ResponseEntity<Void> saveDrink(@RequestBody Drink request) throws URISyntaxException {
-            var drink = drinkService.save(request);
-            URI uri = new URI( "/drinks" + drink.getId());
-            return ResponseEntity.created(uri).build();
-        }
+    //benötigt die Werte Name, alcGehalt und ml für den (@RequestBody Drink request)
+    @PostMapping(path = "/drinks")
+    public ResponseEntity<Void> saveDrink(@RequestBody Drink request) throws URISyntaxException {
+        var drink = drinkService.save(request);
+        URI uri = new URI( "/drinks" + drink.getId());
+        return ResponseEntity.created(uri).build();
+    }
 
     /** JSON Body:
 
@@ -40,19 +40,19 @@ public class HelloController {
      "alcGehalt": 7.5
      }
 
-    */
+     */
 
-     @GetMapping(path="/drinks/{id}")
-     public ResponseEntity<Drink> loadDrink(@PathVariable Long id){
-         ResponseEntity<Drink> response;
-         Drink drink = drinkService.get(id);
-         if (drink != null) {
-             response = new ResponseEntity<>(drink, HttpStatus.OK);
-         } else {
-             response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-         }
-         return response;
-     }
+    @GetMapping(path="/drinks/{id}")
+    public ResponseEntity<Drink> loadDrink(@PathVariable Long id){
+        ResponseEntity<Drink> response;
+        Drink drink = drinkService.get(id);
+        if (drink != null) {
+            response = new ResponseEntity<>(drink, HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
 
     @GetMapping(path="/drinks")
     public ResponseEntity<List<Drink>> loadAllDrinks(){

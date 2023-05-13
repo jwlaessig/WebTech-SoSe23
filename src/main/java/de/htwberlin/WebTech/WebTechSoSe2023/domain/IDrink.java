@@ -45,6 +45,8 @@ public interface IDrink {
 
     Drink build(String name, BigDecimal alc, BigDecimal ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern);
 
+    Drink build(String name, BigDecimal alc, BigDecimal ml, LocalDateTime getrunken, LocalDateTime alcWirkt);
+
     Drink build();
 
 

@@ -3,7 +3,11 @@ package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Drink implements IDrink{
@@ -30,11 +34,22 @@ public class Drink implements IDrink{
         this.alcWirkt = alcWirkt;
         this.nuechtern = nuechtern;
     }
+    public Drink(String name, BigDecimal alc, BigDecimal ml, LocalDateTime getrunken, LocalDateTime alcWirkt) {
+        this.name = name;
+        this.alc = alc;
+        this.ml = ml;
+        this.getrunken = getrunken;
+        this.alcWirkt = alcWirkt;
+    }
 
     //build für die Getränke die geladen wurden
     @Override
     public Drink build(String name, BigDecimal alc, BigDecimal ml, LocalDateTime getrunken, LocalDateTime alcWirkt, LocalDateTime nuechtern){
         return new Drink(name, alc, ml, getrunken, alcWirkt, nuechtern);
+    }
+    @Override
+    public Drink build(String name, BigDecimal alc, BigDecimal ml, LocalDateTime getrunken, LocalDateTime alcWirkt){
+        return new Drink(name, alc, ml, getrunken, alcWirkt);
     }
 
     //build für die Getränke die getrunken wurden; Attribute werden durch die set Methoden gesetzt
@@ -135,25 +150,36 @@ public class Drink implements IDrink{
     public void setNuechtern(LocalDateTime sN) {
         int hours = 0;
         int minutes = 0;
+        Drink aktuell = new Drink();
+        aktuell.setAlc(getAlcGehalt(), getMl());
+        aktuell.build(aktuell.getName(), aktuell.getAlc(), aktuell.getMl(), aktuell.getGetrunken(), aktuell.getNuechtern());
 
+        DrinkService drinkService = new DrinkService();
+        List<Drink> datenbank = drinkService.getAll();
+        Optional<Drink> lastEntry = datenbank.stream().max(Comparator.comparingLong(Drink::getId));
+        LocalDateTime zeit = lastEntry.get().getNuechtern();
         BigDecimal ausnuechtern = alc;
 
-        while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0 || ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
-            if (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0) {
-                ausnuechtern = ausnuechtern.subtract(alcAbbauRateProStunde);
-                hours = hours + 1;
-            } else {
-                ausnuechtern = ausnuechtern.subtract(alcAbbauRateProMinute);
-                minutes = minutes + 1;
+            while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0 || ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
+                if (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0) {
+                    ausnuechtern = ausnuechtern.subtract(alcAbbauRateProStunde);
+                    hours = hours + 1;
+                } else {
+                    ausnuechtern = ausnuechtern.subtract(alcAbbauRateProMinute);
+                    minutes = minutes + 1;
+                }
+                if (ausnuechtern.compareTo(BigDecimal.ZERO) < 0) {
+                    break;
+                }
             }
-            if (ausnuechtern.compareTo(BigDecimal.ZERO) < 0) {
-                break;
-            }
+            if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
+            this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
         }
+            else{
+                Duration duration=Duration.between(aktuell.getGetrunken(),lastEntry.get().getNuechtern());
+                this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
+            }
 
-        this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
+
     }
-
-
-
 }

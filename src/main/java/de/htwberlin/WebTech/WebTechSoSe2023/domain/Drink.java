@@ -76,11 +76,6 @@ public class Drink implements IDrink{
         this.ml = ml;
     }
 
-    //build zum Testen
-    public Drink build(String name, BigDecimal alcGehalt, BigDecimal ml){
-        return new Drink(name, alcGehalt, ml);
-    }
-
 
     @Override
     public Long getId() { return id; }
@@ -152,7 +147,7 @@ public class Drink implements IDrink{
         int minutes = 0;
         Drink aktuell = new Drink();
         aktuell.setAlc(getAlcGehalt(), getMl());
-        aktuell.build(aktuell.getName(), aktuell.getAlc(), aktuell.getMl(), aktuell.getGetrunken(), aktuell.getNuechtern());
+        aktuell.build(aktuell.getName(), aktuell.getAlc(), aktuell.getMl(), aktuell.getGetrunken(), aktuell.getAlcWirkt());
 
         DrinkService drinkService = new DrinkService();
         List<Drink> datenbank = drinkService.getAll();

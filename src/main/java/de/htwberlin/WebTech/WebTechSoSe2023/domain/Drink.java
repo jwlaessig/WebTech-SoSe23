@@ -109,9 +109,6 @@ public class Drink implements IDrink{
     @Override
     public String toString() { return this.getName(); }
 
-    private final BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15.0);
-    private final BigDecimal alcAbbauRateProMinute = alcAbbauRateProStunde.divide(BigDecimal.valueOf(60.0));
-
     @Override
     public void setId(Long id) { this.id = id; }
 
@@ -144,6 +141,9 @@ public class Drink implements IDrink{
     // dazu ist aber die Datenbank nötig.
     @Override
     public void setNuechtern(LocalDateTime sN) {
+        final BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15.0);
+        final BigDecimal alcAbbauRateProMinute = alcAbbauRateProStunde.divide(BigDecimal.valueOf(60.0));
+
         int hours = 0;
         int minutes = 0;
         Drink aktuell = new Drink();

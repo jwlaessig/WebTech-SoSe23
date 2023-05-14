@@ -1,9 +1,14 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Entity
 public class Drink implements IDrink{
@@ -17,6 +22,10 @@ public class Drink implements IDrink{
     private LocalDateTime getrunken;
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
+
+    @Transient
+    @Autowired
+    private DrinkService drinkService;
 
     public Drink() {
     }
@@ -144,15 +153,15 @@ public class Drink implements IDrink{
 
         int hours = 0;
         int minutes = 0;
-        //Drink aktuell = new Drink();
-        //aktuell.setAlc(getAlcGehalt(), getMl());
-        //aktuell.build(aktuell.getName(), aktuell.getAlc(), aktuell.getMl(), aktuell.getGetrunken(), aktuell.getAlcWirkt());
+        Drink aktuell = new Drink();
+        aktuell.setAlc(getAlcGehalt(), getMl());
+        aktuell.build(aktuell.getName(), aktuell.getAlc(), aktuell.getMl(), aktuell.getGetrunken(), aktuell.getAlcWirkt());
 
-        //DrinkService drinkService = new DrinkService();
         //List<Drink> datenbank = drinkService.getAll();
         //Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
         //Drink newestDrink = Collections.max(datenbank, drinkComparator);
         //LocalDateTime zeit = newestDrink.getNuechtern();
+
         BigDecimal ausnuechtern = getAlc();
 
             while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0 || ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
@@ -167,13 +176,14 @@ public class Drink implements IDrink{
                     break;
                 }
             }
-        //    if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
+
+            //if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
             this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
-        //}
-        //    else{
-        //        Duration duration=Duration.between(aktuell.getGetrunken(), zeit);
-        //        this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
-        //   }
+            //}
+            //else{
+            //    Duration duration=Duration.between(aktuell.getGetrunken(), zeit);
+            //    this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
+            //}
 
 
     }

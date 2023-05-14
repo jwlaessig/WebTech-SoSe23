@@ -1,15 +1,9 @@
 package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
 @Entity
 public class Drink implements IDrink{
@@ -77,6 +71,10 @@ public class Drink implements IDrink{
         this.ml = ml;
     }
 
+    @Override
+    public Drink build(String name, BigDecimal alcGehalt, BigDecimal ml){
+		return new Drink(name, alcGehalt, ml);
+    }
 
     @Override
     public Long getId() { return id; }

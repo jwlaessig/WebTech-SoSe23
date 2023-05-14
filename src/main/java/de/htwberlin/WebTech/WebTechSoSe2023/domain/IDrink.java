@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 @Service
 public interface IDrink {
 
+    Drink build(String name, BigDecimal alcGehalt, BigDecimal ml);
+
     Long getId();
 
     String getName();

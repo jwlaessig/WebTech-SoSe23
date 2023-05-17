@@ -23,10 +23,6 @@ public class Drink implements IDrink{
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
 
-    @Transient
-    @Autowired
-    private DrinkService drinkService;
-
     public Drink() {
     }
 
@@ -143,54 +139,8 @@ public class Drink implements IDrink{
         this.alcWirkt = sAW.plusHours(1);
     }
 
-    // hier muss noch eingebaut werden, dass der wert von nuechtern der
-    // vorherigen trinkeinlage eingearbeitet werden muss.
-    // dazu ist aber die Datenbank nötig.
     @Override
     public void setNuechtern(LocalDateTime sN) {
-        final BigDecimal alcAbbauRateProStunde = BigDecimal.valueOf(15.0);
-        final BigDecimal alcAbbauRateProMinute = alcAbbauRateProStunde.divide(BigDecimal.valueOf(60.0));
-
-        int hours = 0;
-        int minutes = 0;
-        Drink aktuell = new Drink();
-        aktuell.setAlc(getAlcGehalt(), getMl());
-        aktuell.build(aktuell.getName(), aktuell.getAlc(), aktuell.getMl(), aktuell.getGetrunken(), aktuell.getAlcWirkt());
-
-        //Die Fehlermeldung besagt, dass es bei der Ausführung des Codes zu einem Fehler kam, der
-        //durch einen Aufruf einer Methode auf einem Null-Objekt verursacht wurde. Konkret wird
-        //versucht, die Methode "getAll()" auf dem Objekt "drinkService" aufzurufen, aber dieses
-        //Objekt ist null und hat somit keine gültige Referenz auf eine Instanz der Klasse
-        //"DrinkService".
-
-        List<Drink> datenbank = drinkService.getAll();
-        Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
-        Drink newestDrink = Collections.max(datenbank, drinkComparator);
-        LocalDateTime zeit = newestDrink.getNuechtern();
-
-        BigDecimal ausnuechtern = getAlc();
-
-            while (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0 || ausnuechtern.compareTo(alcAbbauRateProMinute) >= 0) {
-                if (ausnuechtern.compareTo(alcAbbauRateProStunde) >= 0) {
-                    ausnuechtern = ausnuechtern.subtract(alcAbbauRateProStunde);
-                    hours = hours + 1;
-                } else {
-                    ausnuechtern = ausnuechtern.subtract(alcAbbauRateProMinute);
-                    minutes = minutes + 1;
-                }
-                if (ausnuechtern.compareTo(BigDecimal.ZERO) < 0) {
-                    break;
-                }
-            }
-
-            if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
-            this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
-            }
-            else{
-                Duration duration=Duration.between(aktuell.getGetrunken(), zeit);
-                this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
-            }
-
-
+        this.nuechtern = sN;
     }
 }

@@ -33,7 +33,7 @@ public class DrinkService {
     }
 
     public List<Drink> getAll() {
-        return repo.findAll();
+        return (List<Drink>) repo.findAll();
     }
 
     public LocalDateTime berechneNuechtern(Drink drink) {
@@ -51,10 +51,10 @@ public class DrinkService {
     //Objekt ist null und hat somit keine gültige Referenz auf eine Instanz der Klasse
     //"DrinkService".
 
-        //List<Drink> datenbank = drinkService.getAll();
-        //Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
-        //Drink newestDrink = Collections.max(datenbank, drinkComparator);
-        //LocalDateTime zeit = newestDrink.getNuechtern();
+        List<Drink> datenbank = drinkService.getAll();
+        Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
+        Drink newestDrink = Collections.max(datenbank, drinkComparator);
+        LocalDateTime zeit = newestDrink.getNuechtern();
 
         BigDecimal ausnuechtern = drink.getAlc();
 
@@ -73,12 +73,12 @@ public class DrinkService {
 
         LocalDateTime x = drink.getAlcWirkt();
 
-            //if (zeit.compareTo(drink.getGetrunken()) < 0) {
+            if (zeit.compareTo(drink.getGetrunken()) < 0) {
                 return x.plusHours(hours).plusMinutes(minutes);
-            //}
-            //else {
-            //    Duration duration=Duration.between(drink.getGetrunken(), zeit);
-            //    return x.plusHours(hours).plusMinutes(minutes).plus(duration);
-            //}
+            }
+            else {
+                Duration duration=Duration.between(drink.getGetrunken(), zeit);
+                return x.plusHours(hours).plusMinutes(minutes).plus(duration);
+            }
     }
 }

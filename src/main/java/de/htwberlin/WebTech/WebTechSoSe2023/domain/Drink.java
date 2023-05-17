@@ -157,10 +157,16 @@ public class Drink implements IDrink{
         aktuell.setAlc(getAlcGehalt(), getMl());
         aktuell.build(aktuell.getName(), aktuell.getAlc(), aktuell.getMl(), aktuell.getGetrunken(), aktuell.getAlcWirkt());
 
-        //List<Drink> datenbank = drinkService.getAll();
-        //Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
-        //Drink newestDrink = Collections.max(datenbank, drinkComparator);
-        //LocalDateTime zeit = newestDrink.getNuechtern();
+        //Die Fehlermeldung besagt, dass es bei der Ausführung des Codes zu einem Fehler kam, der
+        //durch einen Aufruf einer Methode auf einem Null-Objekt verursacht wurde. Konkret wird
+        //versucht, die Methode "getAll()" auf dem Objekt "drinkService" aufzurufen, aber dieses
+        //Objekt ist null und hat somit keine gültige Referenz auf eine Instanz der Klasse
+        //"DrinkService".
+
+        List<Drink> datenbank = drinkService.getAll();
+        Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
+        Drink newestDrink = Collections.max(datenbank, drinkComparator);
+        LocalDateTime zeit = newestDrink.getNuechtern();
 
         BigDecimal ausnuechtern = getAlc();
 
@@ -177,13 +183,13 @@ public class Drink implements IDrink{
                 }
             }
 
-            //if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
+            if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
             this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
-            //}
-            //else{
-            //    Duration duration=Duration.between(aktuell.getGetrunken(), zeit);
-            //    this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
-            //}
+            }
+            else{
+                Duration duration=Duration.between(aktuell.getGetrunken(), zeit);
+                this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
+            }
 
 
     }

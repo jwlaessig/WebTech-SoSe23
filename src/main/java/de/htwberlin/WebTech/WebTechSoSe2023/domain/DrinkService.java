@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,6 +18,8 @@ public class DrinkService {
 
     @Autowired
     private IDrinkRepo repo;
+
+    private List<Drink> datenbank = new ArrayList<>();
 
     public Drink speichern(Drink drink){
         DrinkService drinkService = new DrinkService();
@@ -44,17 +47,13 @@ public class DrinkService {
 
         int hours = 0;
         int minutes = 0;
+        LocalDateTime zeit;
 
-    //Die Fehlermeldung besagt, dass es bei der Ausführung des Codes zu einem Fehler kam, der
-    //durch einen Aufruf einer Methode auf einem Null-Objekt verursacht wurde. Konkret wird
-    //versucht, die Methode "getAll()" auf dem Objekt "drinkService" aufzurufen, aber dieses
-    //Objekt ist null und hat somit keine gültige Referenz auf eine Instanz der Klasse
-    //"DrinkService".
-
-        List<Drink> datenbank = drinkService.getAll();
-        Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
-        Drink newestDrink = Collections.max(datenbank, drinkComparator);
-        LocalDateTime zeit = newestDrink.getNuechtern();
+        if (!datenbank.isEmpty()) {
+            Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
+            Drink newestDrink = Collections.max(drinkService.getDatenbank(), drinkComparator);
+            zeit = newestDrink.getNuechtern();
+        } else zeit = drink.getGetrunken();
 
         BigDecimal ausnuechtern = drink.getAlc();
 
@@ -73,12 +72,18 @@ public class DrinkService {
 
         LocalDateTime x = drink.getAlcWirkt();
 
-            if (zeit.compareTo(drink.getGetrunken()) < 0) {
-                return x.plusHours(hours).plusMinutes(minutes);
-            }
-            else {
-                Duration duration=Duration.between(drink.getGetrunken(), zeit);
-                return x.plusHours(hours).plusMinutes(minutes).plus(duration);
-            }
+                if (zeit.compareTo(drink.getGetrunken()) <= 0) {
+                    return x.plusHours(hours).plusMinutes(minutes);
+                } else {
+                    Duration duration = Duration.between(drink.getGetrunken(), zeit);
+                    return x.plusHours(hours).plusMinutes(minutes).plus(duration);
+                }
     }
+
+    public void setDatenbank(List<Drink> datenbank){
+        this.datenbank = datenbank;
+    }
+
+    public List<Drink> getDatenbank() { return datenbank;}
+
 }

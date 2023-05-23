@@ -9,6 +9,8 @@ spring:
       enabled: true
       path: /db-console
   jpa:
+    repositories:
+      bootstrap-mode: deferred
     properties:
       hibernate:
 # The SQL dialect makes Hibernate generate better SQL for the chosen database

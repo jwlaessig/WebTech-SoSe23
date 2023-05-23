@@ -2,7 +2,6 @@ package de.htwberlin.WebTech.WebTechSoSe2023.domain;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -12,10 +11,9 @@ import java.util.Comparator;
 import java.util.List;
 
 @Entity
-@Component
 public class Drink implements IDrink{
-    @Id      //Primärschlüssel der Entität
-    @GeneratedValue(strategy = GenerationType.IDENTITY)   // um die Generierungsstrategie für das annotierte Feld oder die annotierte Eigenschaft festzulegen.
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private BigDecimal alc;
@@ -25,9 +23,9 @@ public class Drink implements IDrink{
     private LocalDateTime alcWirkt;
     private LocalDateTime nuechtern;
 
-    @Transient     //wird nicht in der Datenbank gespeichert oder abgerufen
+    @Transient
     @Autowired
-    DrinkService drinkService;
+    private DrinkService drinkService;
 
     public Drink() {
     }
@@ -159,10 +157,10 @@ public class Drink implements IDrink{
         aktuell.setAlc(getAlcGehalt(), getMl());
         aktuell.build(aktuell.getName(), aktuell.getAlc(), aktuell.getMl(), aktuell.getGetrunken(), aktuell.getAlcWirkt());
 
-        List<Drink> datenbank = drinkService.getAll();
-        Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
-        Drink newestDrink = Collections.max(datenbank, drinkComparator);
-        LocalDateTime zeit = newestDrink.getNuechtern();
+        //List<Drink> datenbank = drinkService.getAll();
+        //Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
+        //Drink newestDrink = Collections.max(datenbank, drinkComparator);
+        //LocalDateTime zeit = newestDrink.getNuechtern();
 
         BigDecimal ausnuechtern = getAlc();
 
@@ -179,16 +177,14 @@ public class Drink implements IDrink{
                 }
             }
 
-            if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
+            //if (zeit.compareTo(aktuell.getGetrunken()) < 0) {
             this.nuechtern = sN.plusHours(hours).plusMinutes(minutes);
-            }
-            else{
-                Duration duration=Duration.between(aktuell.getGetrunken(), zeit);
-                this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
-            }
+            //}
+            //else{
+            //    Duration duration=Duration.between(aktuell.getGetrunken(), zeit);
+            //    this.nuechtern = sN.plusHours(hours).plusMinutes(minutes).plus(duration);
+            //}
 
 
     }
 }
-
-//setNuechtern Methode in die Drink Service Klasse und set Nuechtern manuell Wert eingeben

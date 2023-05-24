@@ -60,7 +60,6 @@ public class HelloController {
         List<Drink> drinks = drinkService.getAll();
         if (!drinks.isEmpty()) {
             response = new ResponseEntity<>(drinks, HttpStatus.OK);
-            drinkService.setDatenbank(drinks);
         } else {
             response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

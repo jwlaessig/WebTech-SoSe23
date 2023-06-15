@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,6 +44,36 @@ class WebTechSoSe2023ApplicationTests {
 		Drink geladen = drinkService.get(id);
 
 		assertEquals(zuSpeichern.getNuechtern(), geladen.getNuechtern());
+	}
+
+	@Test
+	@DisplayName("Alkohol wirkt Berechnung wird getestet")
+	void getrunkenTest() {
+		Drink zuSpeichern = new Drink();
+		zuSpeichern.setName("Kindl");
+		zuSpeichern.setMl(BigDecimal.valueOf(500.0));
+		zuSpeichern.setAlcGehalt(BigDecimal.valueOf(4.8));
+		zuSpeichern.setGetrunken();
+		zuSpeichern.setAlcWirkt(zuSpeichern.getGetrunken());
+		zuSpeichern.setNuechtern(zuSpeichern.getAlcWirkt());
+		zuSpeichern.build();
+
+		assertEquals(zuSpeichern.getAlcWirkt(), zuSpeichern.getGetrunken().plusHours(1));
+	}
+
+	@Test
+	@DisplayName("Ausnüchtern wird berechnet wird getestet")
+	void nuechternTest() {
+		Drink zuSpeichern = new Drink();
+		zuSpeichern.setName("Limonchello");
+		zuSpeichern.setMl(BigDecimal.valueOf(100.0));
+		zuSpeichern.setAlcGehalt(BigDecimal.valueOf(30.0));
+		zuSpeichern.setGetrunken();
+		zuSpeichern.setAlcWirkt(zuSpeichern.getGetrunken());
+		zuSpeichern.setNuechtern(zuSpeichern.getAlcWirkt());
+		zuSpeichern.build();
+
+		assertEquals(drinkService.berechneNuechtern(zuSpeichern.getAlcWirkt()), zuSpeichern.getAlcWirkt().plusHours(2));
 	}
 
 }

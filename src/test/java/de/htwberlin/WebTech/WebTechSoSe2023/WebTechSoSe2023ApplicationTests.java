@@ -39,7 +39,7 @@ class WebTechSoSe2023ApplicationTests {
 		when(drinkRepo.findById(id)).thenReturn(Optional.of(zuSpeichern));
 		when(drinkRepo.save(zuSpeichern)).thenReturn(zuSpeichern);
 
-		drinkService.save(zuSpeichern);
+		drinkService.speichern(zuSpeichern);
 		Drink geladen = drinkService.get(id);
 
 		assertEquals(zuSpeichern.getNuechtern(), geladen.getNuechtern());

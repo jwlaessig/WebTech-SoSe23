@@ -27,7 +27,7 @@ public class DrinkService {
     public Drink speichern(Drink drink){
         drink.setAlc(drink.getAlcGehalt(), drink.getMl());
         drink.setGetrunken();
-        drink.setAlcWirkt(drink.getGetrunken());
+        drink.setAlcWirkt(this.berechneAlcWirkt(drink.getGetrunken()));
         drink.setNuechtern(this.berechneNuechtern(drink));
         drink.build();
         return repo.save(drink);
@@ -39,6 +39,10 @@ public class DrinkService {
 
     public List<Drink> getAll() {
         return (List<Drink>) repo.findAll();
+    }
+
+    public  LocalDateTime berechneAlcWirkt(LocalDateTime bAW){
+        return bAW.plusHours(1);
     }
 
     public LocalDateTime berechneNuechtern(Drink drink) {

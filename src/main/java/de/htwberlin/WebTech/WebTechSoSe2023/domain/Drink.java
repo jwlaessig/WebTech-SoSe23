@@ -135,9 +135,7 @@ public class Drink implements IDrink{
     }
 
     @Override
-    public void setAlcWirkt(LocalDateTime sAW) {
-        this.alcWirkt = sAW.plusHours(1);
-    }
+    public void setAlcWirkt(LocalDateTime sAW) { this.alcWirkt = sAW; }
 
     @Override
     public void setNuechtern(LocalDateTime sN) {

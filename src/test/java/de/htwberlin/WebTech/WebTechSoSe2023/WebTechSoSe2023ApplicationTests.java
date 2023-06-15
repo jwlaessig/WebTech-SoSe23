@@ -73,7 +73,7 @@ class WebTechSoSe2023ApplicationTests {
 		zuSpeichern.setNuechtern(zuSpeichern.getAlcWirkt());
 		zuSpeichern.build();
 
-		assertEquals(drinkService.berechneNuechtern(zuSpeichern.getAlcWirkt()), zuSpeichern.getAlcWirkt().plusHours(2));
+		assertEquals(drinkService.berechneNuechtern(drinkService.berechneAlcWirkt(zuSpeichern)), zuSpeichern.getAlcWirkt().plusHours(2));
 	}
 
 }

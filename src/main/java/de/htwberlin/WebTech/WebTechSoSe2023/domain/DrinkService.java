@@ -85,6 +85,23 @@ public class DrinkService {
                 }
     }
 
+    public boolean canDrive(){
+        LocalDateTime zeit;
+        LocalDateTime current_time = LocalDateTime.now();
+
+        setDatenbank((List<Drink>) repo.findAll());
+        if (!getDatenbank().isEmpty()){
+            Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
+            Drink newestDrink = Collections.max(this.getDatenbank(), drinkComparator);
+            zeit = newestDrink.getNuechtern();
+        } else zeit = current_time;
+
+        if (zeit.isAfter(current_time))
+            return false;
+        else
+            return true;
+    }
+
     public void setDatenbank(List<Drink> datenbank){
         this.datenbank = datenbank;
     }

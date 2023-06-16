@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class HelloController {
+public class DrinkController {
 
     @GetMapping("/")
     public String index() {
@@ -60,6 +60,18 @@ public class HelloController {
         List<Drink> drinks = drinkService.getAll();
         if (!drinks.isEmpty()) {
             response = new ResponseEntity<>(drinks, HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
+    @GetMapping(path="/canDrive")
+    public ResponseEntity<Boolean> getCanDrive(){
+        ResponseEntity<Boolean> response;
+        Boolean bool = drinkService.canDrive();
+        if (bool != null) {
+            response = new ResponseEntity<>(bool, HttpStatus.OK);
         } else {
             response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

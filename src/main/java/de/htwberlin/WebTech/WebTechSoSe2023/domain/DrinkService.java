@@ -85,7 +85,7 @@ public class DrinkService {
                 }
     }
 
-    public boolean canDrive(){
+    public String canDrive(){
         LocalDateTime zeit;
         LocalDateTime current_time = LocalDateTime.now();
 
@@ -97,9 +97,9 @@ public class DrinkService {
         } else zeit = current_time;
 
         if (zeit.isAfter(current_time))
-            return false;
+            return "darf nicht Auto fahren";
         else
-            return true;
+            return "darf Auto fahren";
     }
 
     public void setDatenbank(List<Drink> datenbank){

@@ -67,11 +67,11 @@ public class DrinkController {
     }
 
     @GetMapping(path="/canDrive")
-    public ResponseEntity<Boolean> getCanDrive(){
-        ResponseEntity<Boolean> response;
-        Boolean bool = drinkService.canDrive();
-        if (bool != null) {
-            response = new ResponseEntity<>(bool, HttpStatus.OK);
+    public ResponseEntity<String> getCanDrive(){
+        ResponseEntity<String> response;
+        String canDrive = drinkService.canDrive();
+        if (canDrive != null) {
+            response = new ResponseEntity<>(canDrive, HttpStatus.OK);
         } else {
             response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

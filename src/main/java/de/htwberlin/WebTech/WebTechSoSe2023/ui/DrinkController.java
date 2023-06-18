@@ -66,6 +66,17 @@ public class DrinkController {
         return response;
     }
 
+    @DeleteMapping(path = "/drinks")
+    public void deleteAll() {
+        drinkService.deleteAll();
+    }
+
+    @DeleteMapping(path="/drinks/{id}")
+    public void deleteDrink(@PathVariable Long id){
+        drinkService.deleteById(id);
+    }
+
+
     @GetMapping(path="/canDrive")
     public ResponseEntity<String> getCanDrive(){
         ResponseEntity<String> response;

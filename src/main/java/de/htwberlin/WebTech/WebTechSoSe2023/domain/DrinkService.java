@@ -102,6 +102,14 @@ public class DrinkService {
             return "darf Auto fahren";
     }
 
+    public void deleteAll(){
+        repo.deleteAll();
+    }
+
+    public void deleteById(Long id){
+        repo.deleteById(id);
+    }
+
     public void setDatenbank(List<Drink> datenbank){
         this.datenbank = datenbank;
     }

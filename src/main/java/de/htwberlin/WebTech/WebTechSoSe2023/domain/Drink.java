@@ -121,7 +121,8 @@ public class Drink implements IDrink{
     }
 
     @Override
-    public void setAlc(BigDecimal alcGehalt, BigDecimal ml) { this.alc = ml.divide(BigDecimal.valueOf(100)).multiply(alcGehalt); }
+    public void setAlc(BigDecimal alcGehalt, BigDecimal ml) {
+        this.alc = ml.divide(BigDecimal.valueOf(100)).multiply(alcGehalt); }
 
     @Override
     public void setAlcGehalt(BigDecimal aG) { this.alcGehalt = aG; }

@@ -78,4 +78,21 @@ class WebTechSoSe2023ApplicationTests {
 		assertEquals(zuSpeichern.getNuechtern(), zuSpeichern.getAlcWirkt().plusHours(2));
 	}
 
+	@Test
+	@DisplayName("Alkohol wird durch Alkoholgehalt und ml berechnet")
+	void setAlcTest(){
+		Drink drink = new Drink();
+		drink.setAlcGehalt(new BigDecimal(10));
+		drink.setMl(new BigDecimal(500));
+		BigDecimal calculated = drink.getMl().divide(BigDecimal.valueOf(100)).multiply(drink.getAlcGehalt());
+		BigDecimal expected = new BigDecimal(50);
+
+		assertEquals(expected, calculated);
+
+
+
+	}
+
+
+
 }

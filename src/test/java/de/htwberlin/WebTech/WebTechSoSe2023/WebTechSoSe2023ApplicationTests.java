@@ -94,5 +94,6 @@ class WebTechSoSe2023ApplicationTests {
 	}
 
 
-
 }
+
+//Tests funktionieren

@@ -9,7 +9,7 @@ name: Java CI with Gradle
 env:
   DATASOURCE_USERNAME: testUser
   DATASOURCE_PASSWORD: 1234
-  DATASOURCE_URL: 'jdbc:h2:file:/db'
+  DATASOURCE_URL: 'jdbc:h2:mem:test'
 on:
   push:
     branches:

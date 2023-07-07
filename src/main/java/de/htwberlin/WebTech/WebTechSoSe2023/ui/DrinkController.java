@@ -78,11 +78,23 @@ public class DrinkController {
 
 
     @GetMapping(path="/canDrive")
-    public ResponseEntity<String> getCanDrive(){
+    public ResponseEntity<String> loadCanDrive(){
         ResponseEntity<String> response;
         String canDrive = drinkService.canDrive();
         if (canDrive != null) {
             response = new ResponseEntity<>(canDrive, HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
+    @GetMapping(path="/countdown")
+    public ResponseEntity<String> loadCountdown(){
+        ResponseEntity<String> response;
+        String countdown = drinkService.countdown();
+        if (countdown != null) {
+            response = new ResponseEntity<>(countdown, HttpStatus.OK);
         } else {
             response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

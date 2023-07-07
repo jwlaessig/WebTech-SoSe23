@@ -102,6 +102,26 @@ public class DrinkService {
             return "darf Auto fahren";
     }
 
+    public String countdown(){
+        LocalDateTime zeit;
+        LocalDateTime current_time = LocalDateTime.now();
+
+        setDatenbank((List<Drink>) repo.findAll());
+        if (!getDatenbank().isEmpty()){
+            Comparator<Drink> drinkComparator = Comparator.comparing(Drink::getNuechtern);
+            Drink newestDrink = Collections.max(this.getDatenbank(), drinkComparator);
+            zeit = newestDrink.getNuechtern();
+        } else zeit = current_time;
+
+        if (zeit.isAfter(current_time)) {
+            Duration dauer = Duration.between(current_time, zeit);
+            long sekunden = dauer.getSeconds();
+            return "" + sekunden;
+        }
+        else
+            return "0";
+    }
+
     public void deleteAll(){
         repo.deleteAll();
     }
